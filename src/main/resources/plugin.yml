@@ -1,0 +1,5 @@
+# This is a blank plugin.yml file so I can add the plugin into the server
+name: discord-whitelist-plugin
+version: '1.2'
+main: com.example.discordwhitelist.DiscordWhitelistPlugin
+api-version: '1.21'

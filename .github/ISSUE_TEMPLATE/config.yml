@@ -1,0 +1,21 @@
+yaml
+blank_issues_enabled: false
+defaults:
+  label: bug
+templates:
+  - name: "Bug Report"
+    description: "Report a bug to help us improve."
+    title: "[BUG] "
+    labels:
+      - bug
+  - name: "Advanced Bug Report"
+    description: "Report a bug with detailed technical information."
+    title: "[ADVANCED BUG] "
+    labels:
+      - bug
+      - advanced
+  - name: "Feature Request"
+    description: "Suggest a new feature or enhancement."
+    title: "[FEATURE REQUEST] "
+    labels:
+      - enhancement

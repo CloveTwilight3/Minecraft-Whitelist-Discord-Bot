@@ -1,0 +1,23 @@
+discord:
+  token: "YOUR_DISCORD_BOT_TOKEN"
+  admin_id: "YOUR_DISCORD_ADMIN_ID"
+
+mysql:
+  host: localhost
+  database: minecraft
+  username: root
+  password: password123
+  port: 3306
+
+plugin:
+  messages:
+    enabled: "WhitelistPlugin has been enabled!"
+    disabled: "WhitelistPlugin has been disabled!"
+    whitelist_added: "Player {player} has been added to the whitelist by {user}."
+    whitelist_removed: "Player {player} has been removed from the whitelist by {user}."
+    no_permission: "You do not have permission to perform this action."
+
+commands:
+  whitelist_command: "!whitelist"
+  unwhitelist_command: "!unwhitelist"
+  listwhitelist_command: "!listwhitelist"
