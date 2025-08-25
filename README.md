@@ -45,3 +45,10 @@ This project is licensed under the Apache 2.0 License. See the [LICENSE](https:/
 
 - Thanks to the Discord.js and PaperMC communities for their tools and support.
 - Special thanks to all contributors for making this project possible.
+
+---
+
+# Contributors
+<a href="https://github.com/CloveTwilight3/clovetwilight3/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=CloveTwilight3/Minecraft-Whitelist-Discord-Bot" />
+</a>
