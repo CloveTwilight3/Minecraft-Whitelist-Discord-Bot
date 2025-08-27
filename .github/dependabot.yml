@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # Monitor Gradle dependencies
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "CloveTwilightBOT"
+    assignees:
+      - "CloveTwilightBOT"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "java"
