@@ -41,7 +41,7 @@ This project is licensed under the Apache 2.0 License. See the [LICENSE](https:/
 
 ---
 
-# Help
+## Help
 If you need help. [join our discord](https://discord.gg/k8HrBvDaQn)
 
 ---
