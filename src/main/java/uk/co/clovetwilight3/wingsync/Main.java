@@ -336,7 +336,7 @@ public class Main extends JavaPlugin {
             // Register slash commands when bot is ready
             event.getJDA().updateCommands().addCommands(
                     Commands.slash("register", "WingSync: Add a player to the Minecraft server whitelist")
-                                    .addOption(OptionType.STRING, "uuid", "The UUID of the player to whitelist", true),
+                                    .addOption(OptionType.STRING, "player", "The Minecraft username to add to whitelist", true),
 
                     Commands.slash("remove", "WingSync: Remove a player from the Minecraft server whitelist")
                             .addOption(OptionType.STRING, "player", "The Minecraft username to remove from whitelist", true),
@@ -368,6 +368,7 @@ public class Main extends JavaPlugin {
                     break;
                 case "register":
                     handleWhitelistCommand(event);
+                    break;
                 case "remove":
                     handleUnwhitelistCommand(event);
                     break;
