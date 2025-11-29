@@ -1,9 +1,8 @@
 # Copyright (c) 2025 Clove Twilight
-# Copyright (c) 2025 UnifiedGaming Systems Ltd (Company Number: 16108983)
-# Licensed under the Apache License, Version 2.0
-# http://www.apache.org/licenses/LICENSE-2.0
+# Licensed under the MIT License
+# WingSync
 
 name: discord-whitelist-plugin
 version: '2.0'
-main: uk.co.clovetwilight3.discordwhitelist.DiscordWhitelistPlugin
-api-version: '1.21'
+main: uk.co.clovetwilight3.wingsync.Main
+api-version: '1.21.10'

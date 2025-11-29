@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2025 Mazey-Jessica Emily Twilight
- * Copyright (c) 2025 UnifiedGaming Systems Ltd (Company Number: 16108983)
- * Licensed under the Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Copyright (c) 2025 Clove Nytrix Doughmination Twilight
+ * Licensed under the MIT License
+ * WingSync
  */
 
-package uk.co.clovetwilight3.discordwhitelist;
+package uk.co.clovetwilight3.wingsync;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -29,7 +28,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -38,7 +36,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
-public class DiscordWhitelistPlugin extends JavaPlugin {
+public class Main extends JavaPlugin {
 
     private Connection connection;
     private JDA jda;
@@ -337,25 +335,25 @@ public class DiscordWhitelistPlugin extends JavaPlugin {
         public void onReady(ReadyEvent event) {
             // Register slash commands when bot is ready
             event.getJDA().updateCommands().addCommands(
-                    Commands.slash("whitelist", "Add a player to the Minecraft server whitelist")
-                            .addOption(OptionType.STRING, "player", "The Minecraft username to whitelist", true),
+                    Commands.slash("register", "WingSync: Add a player to the Minecraft server whitelist")
+                                    .addOption(OptionType.STRING, "uuid", "The UUID of the player to whitelist", true),
 
-                    Commands.slash("unwhitelist", "Remove a player from the Minecraft server whitelist")
+                    Commands.slash("remove", "WingSync: Remove a player from the Minecraft server whitelist")
                             .addOption(OptionType.STRING, "player", "The Minecraft username to remove from whitelist", true),
 
-                    Commands.slash("listwhitelist", "Display all players currently on the whitelist"),
+                    Commands.slash("listwhitelist", "WingSync: Display all players currently on the whitelist"),
 
-                    Commands.slash("whois", "Find which Minecraft accounts are linked to a Discord user")
+                    Commands.slash("whois", "WingSync: Find which Minecraft accounts are linked to a Discord user")
                             .addOption(OptionType.USER, "user", "The Discord user to check", true),
 
-                    Commands.slash("whomc", "Find which Discord user is linked to a Minecraft username")
+                    Commands.slash("whomc", "WingSync: Find which Discord user is linked to a Minecraft username")
                             .addOption(OptionType.STRING, "username", "The Minecraft username to check", true),
 
-                    Commands.slash("storage", "Check the current storage method being used")
+                    Commands.slash("storage", "WingSync: Check the current storage method being used")
             ).queue(success -> {
-                getLogger().info("Successfully registered slash commands!");
+                getLogger().info("Successfully registered WingSync slash commands!");
             }, error -> {
-                getLogger().severe("Failed to register slash commands: " + error.getMessage());
+                getLogger().severe("Failed to register WingSync slash commands: " + error.getMessage());
             });
         }
 
@@ -368,10 +366,9 @@ public class DiscordWhitelistPlugin extends JavaPlugin {
                 case "whomc":
                     handleWhomcCommand(event);
                     break;
-                case "whitelist":
+                case "register":
                     handleWhitelistCommand(event);
-                    break;
-                case "unwhitelist":
+                case "remove":
                     handleUnwhitelistCommand(event);
                     break;
                 case "listwhitelist":
@@ -442,7 +439,7 @@ public class DiscordWhitelistPlugin extends JavaPlugin {
             String discordId = event.getUser().getId();
             String discordUsername = event.getUser().getAsTag();
 
-            Bukkit.getScheduler().runTask(DiscordWhitelistPlugin.this, () -> {
+            Bukkit.getScheduler().runTask(Main.this, () -> {
                 try {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
                     UUID uuid = player.getUniqueId();
@@ -466,7 +463,7 @@ public class DiscordWhitelistPlugin extends JavaPlugin {
             String discordId = event.getUser().getId();
             String adminDiscordId = getConfig().getString("discord.admin_id");
 
-            Bukkit.getScheduler().runTask(DiscordWhitelistPlugin.this, () -> {
+            Bukkit.getScheduler().runTask(Main.this, () -> {
                 try {
                     OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
                     UUID uuid = player.getUniqueId();
@@ -490,7 +487,7 @@ public class DiscordWhitelistPlugin extends JavaPlugin {
         private void handleListWhitelistCommand(SlashCommandInteractionEvent event) {
             event.deferReply().queue();
 
-            Bukkit.getScheduler().runTask(DiscordWhitelistPlugin.this, () -> {
+            Bukkit.getScheduler().runTask(Main.this, () -> {
                 StringBuilder response = new StringBuilder("**Whitelisted Players:**\n```\n");
                 for (OfflinePlayer player : Bukkit.getWhitelistedPlayers()) {
                     response.append("• ").append(player.getName()).append("\n");

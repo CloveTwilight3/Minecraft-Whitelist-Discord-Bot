@@ -1,7 +1,6 @@
 # Copyright (c) 2025 Clove Twilight
-# Copyright (c) 2025 UnifiedGaming Systems Ltd (Company Number: 16108983)
-# Licensed under the Apache License, Version 2.0
-# http://www.apache.org/licenses/LICENSE-2.0
+# Licensed under the MIT License
+# WingSync
 
 discord:
   token: "YOUR_DISCORD_BOT_TOKEN"
@@ -22,11 +21,3 @@ discord:
       whitelist_added: "Player {player} has been added to the whitelist by {user}."
       whitelist_removed: "Player {player} has been removed from the whitelist by {user}."
       no_permission: "You do not have permission to perform this action."
-
-  # Note: Slash commands are now handled directly in the code
-  # The old ! commands have been replaced with modern Discord slash commands:
-  # /whitelist <player> - Add a player to the whitelist
-  # /unwhitelist <player> - Remove a player from the whitelist
-  # /listwhitelist - Display all whitelisted players
-  # /whois <@user> - Find Minecraft accounts linked to a Discord user
-  # /whomc <username> - Find Discord user linked to a Minecraft username

@@ -4,17 +4,17 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>uk.co.clovetwilight3.discordwhitelist</groupId>
-    <artifactId>WhitelistBot</artifactId>
-    <version>2.0</version>
+    <groupId>uk.co.clovetwilight3.wingsync</groupId>
+    <artifactId>WingSync</artifactId>
+    <version>3.0</version>
     <packaging>jar</packaging>
 
-    <name>DiscordWhitelistPlugin</name>
-    <url>https://example.com</url>
+    <name>WingSync</name>
+    <url>https://wingsync.clovetwilight3.co.uk</url>
 
     <properties>
         <java.version>21</java.version>
-        <minecraft.version>1.21.5</minecraft.version>
+        <minecraft.version>1.21.10</minecraft.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
