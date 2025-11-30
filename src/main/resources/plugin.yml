@@ -3,6 +3,20 @@
 # WingSync
 
 name: WingSync
-version: '3.0'
+version: '3.2.0'
 main: uk.co.clovetwilight3.wingsync.Main
 api-version: '1.21.10'
+depend: [CloveLib]
+author: CloveTwilight3
+website: https://github.com/CloveLib/WingSync
+
+commands:
+  wsreload:
+    description: Reload WingSync config and reconnect the Discord bot
+    usage: /wsreload
+    permission: wingsync.reload
+
+permissions:
+  wingsync.reload:
+    description: Allows reloading the WingSync plugin
+    default: op

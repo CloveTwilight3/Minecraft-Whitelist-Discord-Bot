@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Clove Nytrix Doughmination Twilight
+ * Copyright (c) 2025 Clove Twilight
  * Licensed under the MIT License
  * WingSync
  */
@@ -17,6 +17,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import uk.co.clovetwilight3.wingsync.listeners.CloveLibListener;
+
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.sql.Connection;
@@ -77,7 +79,15 @@ public class Main extends JavaPlugin {
             getLogger().info("File-based storage enabled. MySQL disabled.");
         }
 
-        getLogger().info("WhitelistPlugin Enabling...");
+        getLogger().info("WingSync Enabling...");
+
+        // Register CloveLib listener for ban events
+        if (Bukkit.getPluginManager().getPlugin("CloveLib") != null) {
+            getServer().getPluginManager().registerEvents(new CloveLibListener(this), this);
+            getLogger().info("CloveLib integration enabled - bans will auto-remove from whitelist.");
+        } else {
+            getLogger().warning("CloveLib not found! Ban integration will not work.");
+        }
 
         String token = getConfig().getString("discord.token");
         if (token == null || token.isEmpty()) {
@@ -120,7 +130,7 @@ public class Main extends JavaPlugin {
                 jda.shutdownNow();
             }
         }
-        getLogger().info("WhitelistPlugin Disabled");
+        getLogger().info("WingSync Disabled");
     }
 
     private void setupFileStorage() {
@@ -258,6 +268,36 @@ public class Main extends JavaPlugin {
         }
     }
 
+    /**
+     * Remove player data by username (used by CloveLib ban integration)
+     * @param username The Minecraft username to remove
+     */
+    public void removePlayerDataByName(String username) {
+        if (useMysql) {
+            try (PreparedStatement stmt = getDatabaseConnection().prepareStatement(
+                    "DELETE FROM discord_whitelist WHERE username = ?")) {
+                stmt.setString(1, username);
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                getLogger().warning("MySQL Error: " + e.getMessage());
+                throw new RuntimeException("Database error", e);
+            }
+        } else {
+            // Find and remove by username
+            String uuidToRemove = null;
+            for (Map.Entry<String, PlayerData> entry : playerDataMap.entrySet()) {
+                if (entry.getValue().username.equalsIgnoreCase(username)) {
+                    uuidToRemove = entry.getKey();
+                    break;
+                }
+            }
+            if (uuidToRemove != null) {
+                playerDataMap.remove(uuidToRemove);
+                saveFileData();
+            }
+        }
+    }
+
     private List<String> getUsernamesByDiscordId(String discordId) {
         List<String> usernames = new ArrayList<>();
 
@@ -299,7 +339,7 @@ public class Main extends JavaPlugin {
             }
         } else {
             for (PlayerData data : playerDataMap.values()) {
-                if (data.username.equals(username)) {
+                if (data.username.equalsIgnoreCase(username)) {
                     return data.discordUsername;
                 }
             }
@@ -336,7 +376,7 @@ public class Main extends JavaPlugin {
             // Register slash commands when bot is ready
             event.getJDA().updateCommands().addCommands(
                     Commands.slash("register", "WingSync: Add a player to the Minecraft server whitelist")
-                                    .addOption(OptionType.STRING, "player", "The Minecraft username to add to whitelist", true),
+                            .addOption(OptionType.STRING, "player", "The Minecraft username to add to whitelist", true),
 
                     Commands.slash("remove", "WingSync: Remove a player from the Minecraft server whitelist")
                             .addOption(OptionType.STRING, "player", "The Minecraft username to remove from whitelist", true),

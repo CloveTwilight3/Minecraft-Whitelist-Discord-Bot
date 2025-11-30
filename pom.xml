@@ -6,7 +6,7 @@
 
     <groupId>uk.co.clovetwilight3.wingsync</groupId>
     <artifactId>WingSync</artifactId>
-    <version>3.0</version>
+    <version>3.2.0</version>
     <packaging>jar</packaging>
 
     <name>WingSync</name>
